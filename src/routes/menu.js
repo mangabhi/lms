@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Box, Typography, Button , List, ListItem, ListItemText} from '@mui/material';
+import { Container, Box, Typography, Button , List, ListItem, ListItemText, Divider} from '@mui/material';
 import { get_notes,logout } from '../endpoints/api';
 // import { useAuth } from '../context/useAuth';
 import { useNavigate } from 'react-router-dom';
 import Drawer from "./Drawer"
+import ReactBigCalendar from '../components/ReactBigCalendar';
+import PieArcLabel from '../components/PieChart';
 
 const Menu = () => {
     const [notes, setNotes] = useState([]);
@@ -33,10 +35,18 @@ const user =true
     };
     return (
         <Container>
+           
             <Box display="flex" flexDirection="column" alignItems="flex-start">
+                <Box display="flex" justifyContent="space-around" width="100%" alignItems={'flex-end'}>
                 <Typography variant="h3" gutterBottom>
                     Welcome {user ? user.username : 'Guest'}
                 </Typography>
+                <Box display="flex" justifyContent="space-between" width="100%" alignItems={'flex-end'}>
+                    <Button variant="contained" color="warning" onClick={handleLogout}>
+                        Logout
+                    </Button>
+            </Box>
+                </Box>
                 <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
                     <List>
                         <ListItem button onClick={() => nav('/')}>
@@ -60,9 +70,9 @@ const user =true
                         </Typography>
                     ))}
                 </Box>
-                <Button variant="contained" color="warning" onClick={handleLogout}>
-                    Logout
-                </Button>
+                <PieArcLabel/>
+                <Divider/>
+                <ReactBigCalendar/>
             </Box>
         </Container>
     );
